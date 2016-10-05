@@ -88,9 +88,12 @@ func makeTermios2(options OpenOptions) (*termios2, error) {
 	ccOpts[syscall.VTIME] = cc_t(vtime / 100)
 	ccOpts[syscall.VMIN] = cc_t(vmin)
 
+	//  control flags
 	cFlags := syscall.CLOCAL | syscall.CREAD | kBOTHER
 	if options.DisableHardwareFlowControl {
 		cFlags &= ^unix.CRTSCTS
+	} else {
+		cFlags |= unix.CRTSCTS
 	}
 
 	t2 := &termios2{
