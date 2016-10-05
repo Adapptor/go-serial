@@ -93,9 +93,9 @@ func makeTermios2(options OpenOptions) (*termios2, error) {
 
 	var cFlags tcflag_t = syscall.CLOCAL | syscall.CREAD | kBOTHER
 	if options.DisableHardwareFlowControl {
-		cFlags &= ^unix.CRTSCTS
+		cFlags &= ^CRTSCTS
 	} else {
-		cFlags |= unix.CRTSCTS
+		cFlags |= CRTSCTS
 	}
 
 	t2 := &termios2{
