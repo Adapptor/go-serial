@@ -29,7 +29,7 @@ const (
 )
 
 // CRTSCTS constant for RasPi, missing from syscall
-const CRTSCTS = 020000000000
+const CRTSCTS tcflag_t = 020000000000
 
 //
 // Types from asm-generic/termbits.h
