@@ -2,7 +2,6 @@ package serial
 
 import (
 	"errors"
-	"golang.org/x/sys/unix"
 	"io"
 	"os"
 	"syscall"
