@@ -2,6 +2,7 @@ package serial
 
 import (
 	"errors"
+	"golang.org/x/sys/unix"
 	"io"
 	"os"
 	"syscall"
@@ -89,7 +90,7 @@ func makeTermios2(options OpenOptions) (*termios2, error) {
 
 	cFlags := syscall.CLOCAL | syscall.CREAD | kBOTHER
 	if options.DisableHardwareFlowControl {
-		cFlags &= ^syscall.CRTSCTS
+		cFlags &= ^unix.CRTSCTS
 	}
 
 	t2 := &termios2{
