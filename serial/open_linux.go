@@ -28,6 +28,9 @@ const (
 	kNCCS    = 19
 )
 
+// CRTSCTS constant for RasPi, missing from syscall
+const CRTSCTS = 020000000000
+
 //
 // Types from asm-generic/termbits.h
 //
@@ -87,9 +90,9 @@ func makeTermios2(options OpenOptions) (*termios2, error) {
 	ccOpts[syscall.VTIME] = cc_t(vtime / 100)
 	ccOpts[syscall.VMIN] = cc_t(vmin)
 
-	cFlags := syscall.CLOCAL | syscall.CREAD | kBOTHER
+	var cFlags tcflag_t = syscall.CLOCAL | syscall.CREAD | kBOTHER
 	if options.DisableHardwareFlowControl {
-		cFlags &= ^syscall.CRTSCTS
+		cFlags &= ^CRTSCTS
 	}
 
 	t2 := &termios2{
